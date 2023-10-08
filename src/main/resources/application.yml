@@ -1,0 +1,16 @@
+server:
+  port: 7733
+
+
+
+
+
+cos:
+  baseUrl:
+  accessKey:
+  secretKey:
+  regionName:
+  bucketName:
+  imagePrefix: /image
+  videoPrefix: /video
+  filePrefix: /file
