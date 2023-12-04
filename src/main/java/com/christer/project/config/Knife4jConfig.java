@@ -28,7 +28,7 @@ public class Knife4jConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(new ApiInfoBuilder()
                         .title("API接口文档")
-                        .description("本文描述系统后台基础模板接口文档")
+                        .description("本文描述了Elasticsearch演示项目的接口文档")
                         .version("1.0")
                         .build())
                 .select()
