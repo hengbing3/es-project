@@ -3,6 +3,7 @@ package com.christer.project.service.impl;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.christer.project.mapper.PostMapper;
 import com.christer.project.model.dto.post.PostAddParam;
 import com.christer.project.model.dto.post.PostQueryParam;
@@ -25,7 +26,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-public class PostServiceImpl implements PostService {
+public class PostServiceImpl extends ServiceImpl<PostMapper, PostEntity> implements PostService {
 
     private final PostMapper postMapper;
 

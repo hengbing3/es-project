@@ -1,64 +1,39 @@
-package com.christer.project;
+package com.christer.project.job.once;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.json.JSONArray;
-
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.christer.project.mapper.PostMapper;
 import com.christer.project.model.entity.post.PostEntity;
 import com.christer.project.service.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.utils.Lists;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 /**
  * @author Christer
  * @version 1.0
- * @date 2023-12-04 22:04
+ * @date 2023-12-05 22:06
  * Description:
- * 爬虫测试
+ * 获取初始化的帖子列表 (取消 Component 注释后，每次启动Springboot项目,会执行一次run方法)
  */
-@SpringBootTest
+//@Component
 @Slf4j
-class CrawlerTest {
+public class FetchInitPostList implements CommandLineRunner {
 
     @Resource
     private PostService postService;
 
 
-    @Test
-    void testFetchPicture() throws IOException {
-        int current = 1;
-        String url = "https://www.bing.com/images/search?q=小黑子&first=" + current;
-        Document doc = Jsoup.connect(url).get();
-        Elements elements = doc.select(".iuscp.isv");
-        for (Element element : elements) {
-            // 获取图片地址
-            String m = element.select(".iusc").get(0).attr("m");
-            Map<String, Object> map = JSONUtil.toBean(m, Map.class);
-            String murl = (String) map.get("murl");
-            log.info("图片地址：{}", murl);
-            String title = element.select(".inflnk").get(0).attr("aria-label");
-            log.info("图片标题：{}", title);
-        }
-    }
-
-    @Test
-    void testFetchPassage() {
+    @Override
+    public void run(String... args) throws Exception {
         // 1.获取数据
-        String json = "{\"current\":1,\"pageSize\":8,\"sortField\":\"createTime\",\"sortOrder\":\"descend\",\"category\":\"文章\",\"reviewStatus\":1}";
+        String json = "{\"current\":2,\"pageSize\":8,\"sortField\":\"createTime\",\"sortOrder\":\"descend\",\"category\":\"文章\",\"reviewStatus\":1}";
         String url = "https://www.code-nav.cn/api/post/search/page/vo";
         String result = HttpRequest.post(url)
                 .body(json)
@@ -71,8 +46,8 @@ class CrawlerTest {
         if (null != code && code == 0) {
             JSONObject data =(JSONObject) map.get("data");
             JSONArray records = (JSONArray) data.get("records");
-            for (Object record : records) {
-                JSONObject tempRecord = (JSONObject) record;
+            for (Object myRecord : records) {
+                JSONObject tempRecord = (JSONObject) myRecord;
                 PostEntity postEntity = new PostEntity();
                 postEntity.setTitle(tempRecord.getStr("title"));
                 postEntity.setContent(tempRecord.getStr("content"));
@@ -84,7 +59,12 @@ class CrawlerTest {
                 postList.add(postEntity);
             }
         }
+        // 批量插入帖子
         boolean b = postService.saveBatch(postList);
-        Assertions.assertTrue(b);
+        if (b) {
+            log.info("初始化帖子列表成功，条数:{}", postList.size());
+        } else {
+            log.error("初始化帖子列表失败！");
+        }
     }
 }
