@@ -6,10 +6,11 @@ import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.christer.project.mapper.PostMapper;
+import com.christer.project.model.entity.picture.PictureEntity;
 import com.christer.project.model.entity.post.PostEntity;
 import com.christer.project.service.PostService;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.compress.utils.Lists;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -44,6 +45,7 @@ class CrawlerTest {
         String url = "https://www.bing.com/images/search?q=小黑子&first=" + current;
         Document doc = Jsoup.connect(url).get();
         Elements elements = doc.select(".iuscp.isv");
+        List<PictureEntity> pictureEntities = Lists.newArrayList();
         for (Element element : elements) {
             // 获取图片地址
             String m = element.select(".iusc").get(0).attr("m");
@@ -52,6 +54,8 @@ class CrawlerTest {
             log.info("图片地址：{}", murl);
             String title = element.select(".inflnk").get(0).attr("aria-label");
             log.info("图片标题：{}", title);
+            PictureEntity pictureEntity = new PictureEntity().setUrl(murl).setTitle(title);
+            pictureEntities.add(pictureEntity);
         }
     }
 

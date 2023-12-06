@@ -27,4 +27,5 @@ public final class WebURLConstant {
     public static final String URI_POST = "/post";
 
     public static final String URI_POST_PAGE = URI_POST + URI_PAGE;
+    public static final String URI_PICTURE_PAGE = URI_POST + "/picture";
 }
