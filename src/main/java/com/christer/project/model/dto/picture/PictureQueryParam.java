@@ -24,6 +24,6 @@ public class PictureQueryParam extends PageCondition implements Serializable {
     /**
      * 搜索词
      */
-    @NotBlank(message = "搜索词不能为空!")
+//    @NotBlank(message = "搜索词不能为空!")
     private String searchText;
 }

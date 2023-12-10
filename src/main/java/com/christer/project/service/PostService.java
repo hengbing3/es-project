@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.christer.project.model.dto.post.PostAddParam;
 import com.christer.project.model.dto.post.PostQueryParam;
 import com.christer.project.model.entity.post.PostEntity;
+import com.christer.project.model.vo.PostVO;
 
 /**
  * @author Christer
@@ -15,5 +16,5 @@ import com.christer.project.model.entity.post.PostEntity;
 public interface PostService extends IService<PostEntity> {
     void addPost(PostAddParam postParam);
 
-    Page<PostEntity> queryPostPage(PostQueryParam postParam);
+    Page<PostVO> queryPostPage(PostQueryParam postParam);
 }

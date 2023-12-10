@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 /**
  * @author Christer
  * @version 1.0
@@ -16,7 +18,9 @@ import lombok.experimental.Accessors;
 @Getter
 @ToString
 @Accessors(chain = true)
-public class PictureEntity {
+public class PictureEntity implements Serializable {
+
+    private static final long serialVersionUID = -544240535183946836L;
 
     private String title;
 

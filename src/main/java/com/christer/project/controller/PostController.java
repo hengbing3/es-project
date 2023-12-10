@@ -45,9 +45,9 @@ public class PostController {
 
     @PostMapping(WebURLConstant.URI_POST_PAGE)
     @ApiOperation("帖子列表")
-    public CommonResult<Page<PostEntity>> queryPostPage(@RequestBody @Validated PostQueryParam postParam) {
+    public CommonResult<Page<PostVO>> queryPostPage(@RequestBody @Validated PostQueryParam postParam) {
         log.info("query post page param: {}", postParam);
-        final Page<PostEntity> postEntityPage =  postService.queryPostPage(postParam);
+        final Page<PostVO> postEntityPage =  postService.queryPostPage(postParam);
         return ResultBody.success(postEntityPage);
     }
 

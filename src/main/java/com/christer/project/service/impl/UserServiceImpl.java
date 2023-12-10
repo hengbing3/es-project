@@ -76,6 +76,8 @@ public class UserServiceImpl implements UserService {
         //分页参数
         final Page<UserEntity> rowPage = new Page<>(userParam.getCurrentPage(), userParam.getPageSize());
         final LambdaQueryWrapper<UserEntity> queryWrapper = new LambdaQueryWrapper<>();
+        // 添加用户查询条件
+        queryWrapper.like(org.springframework.util.StringUtils.hasLength(userParam.getUserName()), UserEntity::getUserName, userParam.getUserName());
         Page<UserEntity> userEntityPage = userMapper.selectPage(rowPage, queryWrapper);
         List<UserInfoVO> userInfoVOS = BeanCopyUtil.copyListProperties(userEntityPage.getRecords(), UserInfoVO::new);
         Page<UserInfoVO> userInfoPage = new Page<>(userEntityPage.getCurrent(), userEntityPage.getSize(), userEntityPage.getTotal());

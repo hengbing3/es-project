@@ -22,10 +22,14 @@ public final class WebURLConstant {
     public static final String URI_USER_LOGOUT = URI_USER + "/logout";
 
     public static final String URI_USER_INFO = URI_USER + "/info";
+
     public static final String URI_USER_PAGE = URI_USER + URI_PAGE;
 
     public static final String URI_POST = "/post";
 
     public static final String URI_POST_PAGE = URI_POST + URI_PAGE;
-    public static final String URI_PICTURE_PAGE = URI_POST + "/picture";
+
+    public static final String URI_PICTURE_PAGE = "/picture" + URI_PAGE;
+
+    public static final String URI_SEARCH_PAGE = "/search" + URI_PAGE;
 }

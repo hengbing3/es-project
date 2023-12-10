@@ -12,7 +12,6 @@ import com.christer.project.service.UserService;
 import com.christer.project.service.impl.SessionServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.annotation.Validated;
