@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.christer.project.common.ResultCode;
 import com.christer.project.exception.BusinessException;
+import com.christer.project.exception.ThrowUtils;
 import com.christer.project.mapper.UserMapper;
 import com.christer.project.model.dto.user.UserLoginParam;
 import com.christer.project.model.dto.user.UserQueryParam;
@@ -44,9 +45,9 @@ public class UserServiceImpl implements UserService {
         userEntityQueryWrapper.lambda().eq(UserEntity::getDeletedFlag, "false")
                 .eq(UserEntity::getUserAccount, userParam.getUserAccount());
         final UserEntity existUserEntity = userMapper.selectOne(userEntityQueryWrapper);
-        if (null != existUserEntity) {
-            throw new BusinessException("账号已经存在！");
-        }
+
+        ThrowUtils.throwIf(null != existUserEntity, "账号已经存在！");
+
         UserEntity userEntity = BeanUtil.copyProperties(userParam, UserEntity.class);
         String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userEntity.getUserPassword()).getBytes());
         userEntity.setUserPassword(encryptPassword);
@@ -60,14 +61,12 @@ public class UserServiceImpl implements UserService {
         queryWrapper.lambda().
                 eq(UserEntity::getUserAccount,userParam.getUserAccount());
         UserEntity userEntity = userMapper.selectOne(queryWrapper);
-        if (userEntity == null) {
-            throw new BusinessException("用户不存在！");
-        }
+        ThrowUtils.throwIf(userEntity == null, "用户不存在！");
         // 校验用户密码输入是否正确
         String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userParam.getUserPassword()).getBytes());
-        if (!StringUtils.equals(encryptPassword, userEntity.getUserPassword())) {
-            throw new BusinessException(ResultCode.PARAMS_ERROR, "用户名或密码错误！");
-        }
+        assert userEntity != null;
+        ThrowUtils.throwIf(!StringUtils.equals(encryptPassword, userEntity.getUserPassword())
+        ,ResultCode.PARAMS_ERROR, "用户名或密码错误！");
         return BeanUtil.copyProperties(userEntity, UserInfoVO.class);
     }
 
