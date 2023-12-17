@@ -25,5 +25,9 @@ public class SearchQueryParam extends PageCondition implements Serializable {
      * 搜索关键词
      */
     private String searchText;
+    /**
+     * 搜索类型：帖子，图片，用户
+     */
+    private String type;
 
 }
