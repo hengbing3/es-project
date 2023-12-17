@@ -1,4 +1,4 @@
-package com.christer.project.service.impl;
+package com.christer.project.manager;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -15,11 +15,10 @@ import com.christer.project.model.vo.SearchVO;
 import com.christer.project.model.vo.UserInfoVO;
 import com.christer.project.service.PictureService;
 import com.christer.project.service.PostService;
-import com.christer.project.service.SearchService;
 import com.christer.project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.concurrent.CompletableFuture;
@@ -27,20 +26,23 @@ import java.util.concurrent.CompletableFuture;
 /**
  * @author Christer
  * @version 1.0
- * @date 2023-12-10 17:10
+ * @date 2023-12-17 16:57
  * Description:
+ * 聚合搜索门面
  */
-@Service
+@Component
 @Slf4j
 @RequiredArgsConstructor
-public class SearchServiceImpl implements SearchService {
+public class SearchFacade {
 
     private final UserService userService;
 
     private final PostService postService;
 
     private final PictureService pictureService;
-    @Override
+
+
+
     public SearchVO searchAll(SearchQueryParam searchQueryParam) {
         // 获取搜索类型
         final String searchType = searchQueryParam.getType();
