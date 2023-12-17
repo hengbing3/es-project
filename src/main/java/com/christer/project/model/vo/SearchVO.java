@@ -32,4 +32,8 @@ public class SearchVO implements Serializable {
      * 图片列表
      */
     private List<PictureEntity> pictureList;
+    /**
+     * 聚合搜索，返回单一类型
+     */
+    private List<?> dataList;
 }
