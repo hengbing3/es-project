@@ -29,22 +29,16 @@
       "tags": {
         "type": "keyword"
       },
-      "thumbNum": {
-        "type": "long"
-      },
-      "favourNum": {
-        "type": "long"
-      },
-      "userId": {
+      "user_id": {
         "type": "keyword"
       },
-      "createTime": {
+      "create_time": {
         "type": "date"
       },
-      "updateTime": {
+      "update_time": {
         "type": "date"
       },
-      "isDelete": {
+      "deleted_flag": {
         "type": "keyword"
       }
     }
