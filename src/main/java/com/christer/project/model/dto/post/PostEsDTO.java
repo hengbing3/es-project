@@ -24,7 +24,9 @@ import java.util.List;
 @Document(indexName = "post")
 @Data
 public class PostEsDTO implements Serializable {
-
+    /**
+     *  ISO 8601 规范的日期格式
+     */
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
     /**

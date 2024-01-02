@@ -29,16 +29,16 @@
       "tags": {
         "type": "keyword"
       },
-      "user_id": {
+      "userId": {
         "type": "keyword"
       },
-      "create_time": {
+      "createTime": {
         "type": "date"
       },
-      "update_time": {
+      "updateTime": {
         "type": "date"
       },
-      "deleted_flag": {
+      "deletedFlag": {
         "type": "keyword"
       }
     }
