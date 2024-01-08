@@ -17,4 +17,8 @@ public final class CommonConstant {
      * 盐值，混淆密码
      */
     public static final String SALT = "My*Christer";
+
+    public static final String SORT_ORDER_ASC = "asc";
+
+    public static final String SORT_ORDER_DESC = "desc";
 }

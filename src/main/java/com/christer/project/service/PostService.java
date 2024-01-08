@@ -17,4 +17,11 @@ public interface PostService extends IService<PostEntity> {
     void addPost(PostAddParam postParam);
 
     Page<PostVO> queryPostPage(PostQueryParam postParam);
+
+    /**
+     * 通过ES 查询帖子信息
+     * @param postParam id，searchText...
+     * @return page
+     */
+    Page<PostEntity> searchPostFromES(PostQueryParam postParam);
 }
