@@ -14,7 +14,17 @@ import java.util.List;
  */
 public interface PostEsMapper extends ElasticsearchRepository<PostEsDTO, Long> {
 
+    /**
+     * 自定义方法：根据用户id查询帖子信息
+     * @param userId 用户id
+     * @return 帖子详情列表
+     */
     List<PostEsDTO> findByUserId(Long userId);
 
+    /**
+     * 自定义方法：根据标题查询帖子信息
+     * @param title 标题
+     * @return 帖子详情列表
+     */
     List<PostEsDTO> findByTitle(String title);
 }
